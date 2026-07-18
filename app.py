@@ -72,49 +72,45 @@ def style_fig(fig, height=420, legend_bottom=True, title=None):
 # =====================================================================
 st.markdown(f"""
 <style>
-    /* === FIX DARK MODE LAPTOP: Force Light Theme === */
-    :root {{
-        --background-color: #FAFBFE;
-        --secondary-background-color: #FFFFFF;
-        --text-color: {SLATE};
-        --primary-color: {NAVY};
-    }}
-    html, body, .stApp {{
+    /* === FIX DARK MODE: Paksa Seluruh App ke Light Theme === */
+    .stApp, [data-testid="stSidebar"] {{
         background-color: #FAFBFE !important;
         color: {SLATE} !important;
     }}
     [data-testid="stSidebar"] {{
-        background-color: #FFFFFF;
+        background-color: #FFFFFF !important;
+        border-right: 1px solid #E3E7F2;
     }}
-    /* Pastikan semua teks UI bawaan streamlit jadi gelap */
-    p, span, li, label, div {{
+    /* Paksa semua teks bawaan streamlit jadi gelap agar terlihat */
+    .stApp p, .stApp span, .stApp label, .stApp li {{
         color: {SLATE} !important;
     }}
-    /* Kecualikan teks yang memang harus putih di dalam header/metric gelap */
-    .app-header p, .app-header h1, .app-header .kicker,
-    div[data-testid="stMetricLabel"], 
-    div[data-testid="stMetricValue"], 
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6 {{
+        color: {NAVY} !important;
+    }}
+    
+    /* Kembalikan teks menjadi putih HANYA untuk elemen custom yang gelap */
+    .app-header, .app-header h1, .app-header p, 
+    div[data-testid="stMetric"], div[data-testid="stMetric"] *,
     .rec-num {{
         color: white !important; 
     }}
-    h1, h2, h3, h4, h5, h6 {{
-        color: {NAVY} !important;
-    }}
-    /* ================================================ */
+    .app-header .kicker {{ color: {GOLD} !important; }}
+    .app-header p {{ color: {ICE} !important; }}
+    /* ====================================================== */
 
     #MainMenu, footer {{ visibility: hidden; }}
 
     .app-header {{
         background: linear-gradient(120deg, {NAVY_DEEP} 0%, {NAVY} 100%);
         padding: 1.8rem 2.2rem; border-radius: 14px; margin-bottom: 1.4rem;
-        color: white;
     }}
     .app-header .kicker {{
-        color: {GOLD}; font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
+        font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
         text-transform: uppercase; margin-bottom: 0.3rem;
     }}
-    .app-header h1 {{ color: white !important; font-size: 2rem; margin: 0 0 0.35rem 0; font-weight: 700; }}
-    .app-header p {{ color: {ICE} !important; font-size: 0.95rem; margin: 0; }}
+    .app-header h1 {{ font-size: 2rem; margin: 0 0 0.35rem 0; font-weight: 700; }}
+    .app-header p {{ font-size: 0.95rem; margin: 0; }}
 
     div[data-testid="stMetric"] {{
         background: #0B0C10; /* Hitam pekat premium */
@@ -126,14 +122,12 @@ st.markdown(f"""
     }}
     
     div[data-testid="stMetricLabel"] {{ 
-        color: {ICE} !important; 
         font-size: 0.85rem; 
         font-weight: 500;
         letter-spacing: 0.5px;
     }}
     
     div[data-testid="stMetricValue"] {{ 
-        color: #FFFFFF !important; 
         font-weight: 700; 
         font-size: 1.85rem !important; 
         white-space: nowrap !important;
@@ -142,7 +136,6 @@ st.markdown(f"""
     div[data-testid="stMetricDelta"] div {{
         white-space: normal !important;
         word-break: break-word !important;
-        color: #FFFFFF !important;
     }}
 
     .insight-box {{
