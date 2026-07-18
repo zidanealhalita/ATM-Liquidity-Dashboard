@@ -47,7 +47,7 @@ GREEN = "#1E7145"
 CATEGORY_COLORS = [NAVY, GOLD, "#5B6BAE", "#D9B24C", "#8B95C9"]
 SEQ_COLORS = [ICE, "#8FA6E0", NAVY]
 
-PLOTLY_TEMPLATE = "plotly_ggplot2"
+PLOTLY_TEMPLATE = "ggplot2"
 
 def style_fig(fig, height=420, legend_bottom=True, title=None):
     """Apply consistent styling to a plotly figure."""
