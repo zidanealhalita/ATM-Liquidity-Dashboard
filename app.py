@@ -47,62 +47,23 @@ GREEN = "#1E7145"
 CATEGORY_COLORS = [NAVY, GOLD, "#5B6BAE", "#D9B24C", "#8B95C9"]
 SEQ_COLORS = [ICE, "#8FA6E0", NAVY]
 
-PLOTLY_TEMPLATE = "plotly_white"
+PLOTLY_TEMPLATE = "plotly_grey"
 
 def style_fig(fig, height=420, legend_bottom=True, title=None):
-    BLACK_FONT = "#000000"
-    
-    layout_kwargs = dict(
+    """Apply consistent styling to a plotly figure."""
+    fig.update_layout(
         template=PLOTLY_TEMPLATE,
         height=height,
-        # Mengunci font global menjadi hitam
-        font=dict(family="Calibri, Arial", size=13, color=BLACK_FONT),
+        font=dict(family="Calibri, Arial", size=13, color=SLATE),
+        title=dict(text=title, font=dict(size=16, color=NAVY, family="Cambria, Georgia, serif")) if title else None,
+        margin=dict(l=10, r=10, t=50 if title else 20, b=10),
+        legend=dict(orientation="h", yanchor="bottom", y=-0.25, xanchor="center", x=0.5) if legend_bottom else {},
         plot_bgcolor="white",
         paper_bgcolor="white",
-        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Calibri", fontcolor=BLACK_FONT),
+        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Calibri"),
     )
-    
-    # Handle judul dan eliminasi bug tulisan "undefined"
-    if title:
-        layout_kwargs["title"] = dict(
-            text=title, 
-            font=dict(size=16, color=NAVY, family="Cambria, Georgia, serif")
-        )
-        layout_kwargs["margin"] = dict(l=15, r=15, t=50, b=10)
-    else:
-        # Menghapus total objek title jika None agar tidak memunculkan "undefined"
-        layout_kwargs["title"] = None
-        layout_kwargs["margin"] = dict(l=15, r=15, t=20, b=10)
-        
-    if legend_bottom:
-        layout_kwargs["legend"] = dict(
-            orientation="h", 
-            yanchor="bottom", 
-            y=-0.3, 
-            xanchor="center", 
-            x=0.5,
-            font=dict(color=BLACK_FONT) # Mengunci teks legenda menjadi hitam
-        )
-        
-    fig.update_layout(**layout_kwargs)
-    
-    # Mengunci warna label & angka di sumbu X menjadi hitam
-    fig.update_xaxes(
-        showgrid=False, 
-        showline=True, 
-        linecolor="#DCE1EE",
-        tickfont=dict(color=BLACK_FONT),
-        titlefont=dict(color=BLACK_FONT)
-    )
-    
-    # Mengunci warna label & angka di sumbu Y menjadi hitam
-    fig.update_yaxes(
-        showgrid=True, 
-        gridcolor="#EEF1F8", 
-        zeroline=False,
-        tickfont=dict(color=BLACK_FONT),
-        titlefont=dict(color=BLACK_FONT)
-    )
+    fig.update_xaxes(showgrid=False, showline=True, linecolor="#DCE1EE")
+    fig.update_yaxes(showgrid=True, gridcolor="#EEF1F8", zeroline=False)
     return fig
 
 
