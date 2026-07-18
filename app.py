@@ -72,7 +72,36 @@ def style_fig(fig, height=420, legend_bottom=True, title=None):
 # =====================================================================
 st.markdown(f"""
 <style>
-    .stApp {{ background-color: #FAFBFE; }}
+    /* === FIX DARK MODE LAPTOP: Force Light Theme === */
+    :root {{
+        --background-color: #FAFBFE;
+        --secondary-background-color: #FFFFFF;
+        --text-color: {SLATE};
+        --primary-color: {NAVY};
+    }}
+    html, body, .stApp {{
+        background-color: #FAFBFE !important;
+        color: {SLATE} !important;
+    }}
+    [data-testid="stSidebar"] {{
+        background-color: #FFFFFF;
+    }}
+    /* Pastikan semua teks UI bawaan streamlit jadi gelap */
+    p, span, li, label, div {{
+        color: {SLATE} !important;
+    }}
+    /* Kecualikan teks yang memang harus putih di dalam header/metric gelap */
+    .app-header p, .app-header h1, .app-header .kicker,
+    div[data-testid="stMetricLabel"], 
+    div[data-testid="stMetricValue"], 
+    .rec-num {{
+        color: white !important; 
+    }}
+    h1, h2, h3, h4, h5, h6 {{
+        color: {NAVY} !important;
+    }}
+    /* ================================================ */
+
     #MainMenu, footer {{ visibility: hidden; }}
 
     .app-header {{
@@ -84,8 +113,8 @@ st.markdown(f"""
         color: {GOLD}; font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
         text-transform: uppercase; margin-bottom: 0.3rem;
     }}
-    .app-header h1 {{ color: white; font-size: 2rem; margin: 0 0 0.35rem 0; font-weight: 700; }}
-    .app-header p {{ color: {ICE}; font-size: 0.95rem; margin: 0; }}
+    .app-header h1 {{ color: white !important; font-size: 2rem; margin: 0 0 0.35rem 0; font-weight: 700; }}
+    .app-header p {{ color: {ICE} !important; font-size: 0.95rem; margin: 0; }}
 
     div[data-testid="stMetric"] {{
         background: #0B0C10; /* Hitam pekat premium */
@@ -113,29 +142,30 @@ st.markdown(f"""
     div[data-testid="stMetricDelta"] div {{
         white-space: normal !important;
         word-break: break-word !important;
+        color: #FFFFFF !important;
     }}
 
     .insight-box {{
         background: {ICE_SOFT}; border-left: 4px solid {NAVY};
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
-        font-size: 0.92rem; color: {SLATE};
+        font-size: 0.92rem; color: {SLATE} !important;
     }}
-    .insight-box b {{ color: {NAVY}; }}
+    .insight-box b {{ color: {NAVY} !important; }}
     .gold-box {{
         background: {GOLD_SOFT}; border-left: 4px solid {GOLD};
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
-        font-size: 0.92rem; color: {SLATE};
+        font-size: 0.92rem; color: {SLATE} !important;
     }}
-    .gold-box b {{ color: #8A6A10; }}
+    .gold-box b {{ color: #8A6A10 !important; }}
     .risk-box {{
         background: #FBEAE5; border-left: 4px solid {CORAL};
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
-        font-size: 0.92rem; color: {SLATE};
+        font-size: 0.92rem; color: {SLATE} !important;
     }}
-    .risk-box b {{ color: {CORAL}; }}
+    .risk-box b {{ color: {CORAL} !important; }}
 
     .section-title {{
-        color: {NAVY}; font-size: 1.25rem; font-weight: 700; margin: 0.2rem 0 0.6rem 0;
+        color: {NAVY} !important; font-size: 1.25rem; font-weight: 700; margin: 0.2rem 0 0.6rem 0;
         border-bottom: 2px solid {ICE}; padding-bottom: 0.4rem;
     }}
     .rec-card {{
@@ -143,7 +173,7 @@ st.markdown(f"""
         padding: 1rem 1.2rem; margin-bottom: 0.7rem;
     }}
     .rec-num {{
-        display:inline-block; background:{NAVY}; color:white; width:28px; height:28px;
+        display:inline-block; background:{NAVY}; color:white !important; width:28px; height:28px;
         border-radius:50%; text-align:center; line-height:28px; font-weight:700; margin-right:10px;
     }}
     footer {{visibility: hidden;}}
