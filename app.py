@@ -87,24 +87,20 @@ st.markdown(f"""
     .app-header h1 {{ color: white; font-size: 2rem; margin: 0 0 0.35rem 0; font-weight: 700; }}
     .app-header p {{ color: {ICE}; font-size: 0.95rem; margin: 0; }}
 
-    div[data-testid="stMetric"] {
+    div[data-testid="stMetric"] {{
         background: white; border: 1px solid #E3E7F2; border-radius: 12px;
         padding: 0.9rem 1.1rem 0.7rem 1.1rem;
         box-shadow: 0 1px 3px rgba(30,39,97,0.06);
-        min-height: 110px; /* Memastikan tinggi box seragam meski delta turun ke bawah */
-    }
-    div[data-testid="stMetricLabel"] { color: {MUTE}; font-size: 0.82rem; }
-    div[data-testid="stMetricValue"] { 
+        min-height: 110px;
+    }}
+    div[data-testid="stMetricLabel"] {{ color: {MUTE}; font-size: 0.82rem; }}
+    
+    div[data-testid="stMetricValue"] {{ 
         color: {NAVY}; 
         font-weight: 700; 
         font-size: 1.65rem !important; 
         white-space: nowrap !important;
-    }
-
-    div[data-testid="stMetricDelta"] div {
-        white-space: normal !important;
-        word-break: break-word !important;
-    }
+    }}
 
     .insight-box {{
         background: {ICE_SOFT}; border-left: 4px solid {NAVY};
