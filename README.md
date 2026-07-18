@@ -110,4 +110,4 @@ EOQ juga dibatasi agar tidak melebihi kapasitas fisik ATM (dapat diatur di
 
 ---
 
-*Dibangun untuk Divisi Operations & Treasury — Cash Liquidity Optimization for ATM Network.*
+*Dibangun untuk Operations & Treasury — Cash Liquidity Optimization for ATM Network.*
