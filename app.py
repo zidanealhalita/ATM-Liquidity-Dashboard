@@ -51,7 +51,6 @@ PLOTLY_TEMPLATE = "plotly_white"
 
 def style_fig(fig, height=420, legend_bottom=True, title=None):
     """Apply consistent styling with high-contrast black text and clear titles."""
-    # Definisikan warna hitam pekat agar kontras di atas background putih
     BLACK_FONT = "#000000"
     
     layout_kwargs = dict(
