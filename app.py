@@ -88,18 +88,31 @@ st.markdown(f"""
     .app-header p {{ color: {ICE}; font-size: 0.95rem; margin: 0; }}
 
     div[data-testid="stMetric"] {{
-        background: white; border: 1px solid #E3E7F2; border-radius: 12px;
-        padding: 0.9rem 1.1rem 0.7rem 1.1rem;
-        box-shadow: 0 1px 3px rgba(30,39,97,0.06);
-        min-height: 110px;
+        background: #0B0C10; /* Hitam pekat premium */
+        border: 1px solid #1F2833; 
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        min-height: 120px;
     }}
-    div[data-testid="stMetricLabel"] {{ color: {MUTE}; font-size: 0.82rem; }}
+    
+    div[data-testid="stMetricLabel"] {{ 
+        color: {ICE} !important; 
+        font-size: 0.85rem; 
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }}
     
     div[data-testid="stMetricValue"] {{ 
-        color: {NAVY}; 
+        color: #FFFFFF !important; 
         font-weight: 700; 
-        font-size: 1.65rem !important; 
+        font-size: 1.85rem !important; 
         white-space: nowrap !important;
+    }}
+
+    div[data-testid="stMetricDelta"] div {{
+        white-space: normal !important;
+        word-break: break-word !important;
     }}
 
     .insight-box {{
