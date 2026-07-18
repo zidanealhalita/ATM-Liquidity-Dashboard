@@ -50,7 +50,6 @@ SEQ_COLORS = [ICE, "#8FA6E0", NAVY]
 PLOTLY_TEMPLATE = "plotly_white"
 
 def style_fig(fig, height=420, legend_bottom=True, title=None):
-    """Apply consistent styling with high-contrast black text and clear titles."""
     BLACK_FONT = "#000000"
     
     layout_kwargs = dict(
