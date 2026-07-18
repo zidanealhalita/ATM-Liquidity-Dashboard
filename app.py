@@ -31,83 +31,69 @@ st.set_page_config(
 )
 
 # =====================================================================
-# THEME / COLORS  (selaras dengan deck & workbook: "Midnight Executive")
+# THEME / COLORS  (Dark Premium Executive)
 # =====================================================================
-NAVY = "#1E2761"
-NAVY_DEEP = "#141B49"
-ICE = "#CADCFC"
-ICE_SOFT = "#EEF2FC"
-GOLD = "#C9971C"
-GOLD_SOFT = "#F3E6C4"
-SLATE = "#3D4152"
-MUTE = "#6E7488"
-CORAL = "#B3452C"
-GREEN = "#1E7145"
+NAVY = "#7B87E0"       # Navy lebih cerah agar kontras di dark mode
+NAVY_DEEP = "#0B0F19"  # Background utama gelap
+ICE = "#CADCFC"        # Teks utama terang
+ICE_SOFT = "#11151F"   # Background box gelap
+GOLD = "#F3D27A"       # Aksen emas cerah
+GOLD_SOFT = "#1A1610"  # Background box emas gelap
+SLATE = "#E2E8F0"      # Teks abu terang
+MUTE = "#94A3B8"       # Teks sub-label
+CORAL = "#FF8A65"      # Aksen merah/oranye
+GREEN = "#4ADE80"
 
-CATEGORY_COLORS = [NAVY, GOLD, "#5B6BAE", "#D9B24C", "#8B95C9"]
-SEQ_COLORS = [ICE, "#8FA6E0", NAVY]
+CATEGORY_COLORS = [NAVY, GOLD, "#8FA6E0", "#D9B24C", "#8B95C9"]
+SEQ_COLORS = ["#1A1F2E", "#8FA6E0", NAVY]
 
-PLOTLY_TEMPLATE = "ggplot2"
+PLOTLY_TEMPLATE = "plotly_white"
 
 def style_fig(fig, height=420, legend_bottom=True, title=None):
-    """Apply consistent styling to a plotly figure."""
+    """Apply consistent dark styling to a plotly figure."""
     fig.update_layout(
         template=PLOTLY_TEMPLATE,
         height=height,
         font=dict(family="Calibri, Arial", size=13, color=SLATE),
-        title=dict(text=title, font=dict(size=16, color=NAVY, family="Cambria, Georgia, serif")) if title else None,
+        title=dict(text=title, font=dict(size=16, color=ICE, family="Cambria, Georgia, serif")) if title else None,
         margin=dict(l=10, r=10, t=50 if title else 20, b=10),
         legend=dict(orientation="h", yanchor="bottom", y=-0.25, xanchor="center", x=0.5) if legend_bottom else {},
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Calibri"),
+        plot_bgcolor="#141925",     # Background grafik gelap
+        paper_bgcolor="#141925",    # Border grafik gelap
+        hoverlabel=dict(bgcolor="#11151F", font_size=12, font_family="Calibri", font_color=ICE),
     )
-    fig.update_xaxes(showgrid=False, showline=True, linecolor="#DCE1EE")
-    fig.update_yaxes(showgrid=True, gridcolor="#EEF1F8", zeroline=False)
+    # Warna grid dan sumbu agar terlihat di dark mode
+    fig.update_xaxes(showgrid=False, showline=True, linecolor="#3D4152", tickfont=dict(color=MUTE))
+    fig.update_yaxes(showgrid=True, gridcolor="#2A2F3E", zeroline=False, tickfont=dict(color=MUTE))
     return fig
 
 
 # =====================================================================
-# CUSTOM CSS
+# CUSTOM CSS (FORCE DARK MODE UI)
 # =====================================================================
 st.markdown(f"""
 <style>
-    /* === FIX DARK MODE LAPTOP: Force Light Theme === */
+    /* Memaksa streamlit menggunakan tema gelap */
     :root {{
-        --background-color: #FAFBFE;
-        --secondary-background-color: #FFFFFF;
+        --background-color: {NAVY_DEEP};
+        --secondary-background-color: {ICE_SOFT};
         --text-color: {SLATE};
         --primary-color: {NAVY};
+        --border-color: #2A2F3E;
     }}
-    html, body, .stApp {{
-        background-color: #FAFBFE !important;
-        color: {SLATE} !important;
-    }}
-    [data-testid="stSidebar"] {{
-        background-color: #FFFFFF;
-    }}
-    /* Pastikan semua teks UI bawaan streamlit jadi gelap */
-    p, span, li, label, div {{
-        color: {SLATE} !important;
-    }}
-    /* Kecualikan teks yang memang harus putih di dalam header/metric gelap */
-    .app-header p, .app-header h1, .app-header .kicker,
-    div[data-testid="stMetricLabel"], 
-    div[data-testid="stMetricValue"], 
-    .rec-num {{
-        color: white !important; 
-    }}
-    h1, h2, h3, h4, h5, h6 {{
-        color: {NAVY} !important;
-    }}
-    /* ================================================ */
+    .stApp {{ background-color: {NAVY_DEEP}; color: {SLATE}; }}
+    [data-testid="stSidebar"] {{ background-color: #11151F; border-right: 1px solid #2A2F3E; }}
+    
+    /* Teks bawaan streamlit jadi terang */
+    .stApp p, .stApp span, .stApp label, .stApp li {{ color: {SLATE} !important; }}
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6 {{ color: {ICE} !important; }}
 
     #MainMenu, footer {{ visibility: hidden; }}
 
     .app-header {{
-        background: linear-gradient(120deg, {NAVY_DEEP} 0%, {NAVY} 100%);
+        background: linear-gradient(120deg, #11151F 0%, #1A1F2E 100%);
+        border: 1px solid #2A2F3E;
         padding: 1.8rem 2.2rem; border-radius: 14px; margin-bottom: 1.4rem;
-        color: white;
     }}
     .app-header .kicker {{
         color: {GOLD}; font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
@@ -117,8 +103,8 @@ st.markdown(f"""
     .app-header p {{ color: {ICE} !important; font-size: 0.95rem; margin: 0; }}
 
     div[data-testid="stMetric"] {{
-        background: #0B0C10; /* Hitam pekat premium */
-        border: 1px solid #1F2833; 
+        background: {ICE_SOFT}; 
+        border: 1px solid #2A2F3E; 
         border-radius: 12px;
         padding: 1rem 1.2rem;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -126,14 +112,14 @@ st.markdown(f"""
     }}
     
     div[data-testid="stMetricLabel"] {{ 
-        color: {ICE} !important; 
+        color: {MUTE} !important; 
         font-size: 0.85rem; 
         font-weight: 500;
         letter-spacing: 0.5px;
     }}
     
     div[data-testid="stMetricValue"] {{ 
-        color: #FFFFFF !important; 
+        color: {ICE} !important; 
         font-weight: 700; 
         font-size: 1.85rem !important; 
         white-space: nowrap !important;
@@ -142,7 +128,7 @@ st.markdown(f"""
     div[data-testid="stMetricDelta"] div {{
         white-space: normal !important;
         word-break: break-word !important;
-        color: #FFFFFF !important;
+        color: {SLATE} !important;
     }}
 
     .insight-box {{
@@ -150,26 +136,29 @@ st.markdown(f"""
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
         font-size: 0.92rem; color: {SLATE} !important;
     }}
-    .insight-box b {{ color: {NAVY} !important; }}
+    .insight-box b {{ color: {ICE} !important; }}
+    
     .gold-box {{
         background: {GOLD_SOFT}; border-left: 4px solid {GOLD};
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
         font-size: 0.92rem; color: {SLATE} !important;
     }}
-    .gold-box b {{ color: #8A6A10 !important; }}
+    .gold-box b {{ color: {GOLD} !important; }}
+    
     .risk-box {{
-        background: #FBEAE5; border-left: 4px solid {CORAL};
+        background: #1F1410; border-left: 4px solid {CORAL};
         border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
         font-size: 0.92rem; color: {SLATE} !important;
     }}
     .risk-box b {{ color: {CORAL} !important; }}
 
     .section-title {{
-        color: {NAVY} !important; font-size: 1.25rem; font-weight: 700; margin: 0.2rem 0 0.6rem 0;
-        border-bottom: 2px solid {ICE}; padding-bottom: 0.4rem;
+        color: {ICE} !important; font-size: 1.25rem; font-weight: 700; margin: 0.2rem 0 0.6rem 0;
+        border-bottom: 2px solid #2A2F3E; padding-bottom: 0.4rem;
     }}
+    
     .rec-card {{
-        background: white; border: 1px solid #E3E7F2; border-radius: 12px;
+        background: {ICE_SOFT}; border: 1px solid #2A2F3E; border-radius: 12px;
         padding: 1rem 1.2rem; margin-bottom: 0.7rem;
     }}
     .rec-num {{
@@ -214,16 +203,6 @@ def load_data(file_bytes: bytes) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def compute_atm_summary(df: pd.DataFrame, holding_rate_annual_pct: float, capacity_cap: float = 0.999) -> pd.DataFrame:
-    """
-    Hitung ringkasan per-ATM termasuk kuantitas order optimal (EOQ) dan
-    estimasi potensi penghematan tahunan, berdasarkan trade-off antara
-    biaya modal dana idle (holding cost) dan biaya logistik CIT per trip.
-
-        Q* = sqrt( 2 * D * S / H )
-
-    D = rata-rata penarikan harian, S = biaya logistik per trip,
-    H = tingkat biaya modal harian (opportunity cost dana idle).
-    """
     h_daily = (holding_rate_annual_pct / 100) / 365
 
     g = df.groupby("ATM_ID").agg(
@@ -297,8 +276,6 @@ def compute_location_summary(df: pd.DataFrame, atm_summary: pd.DataFrame) -> pd.
     trip_cost.columns = ["Location_Type", "Avg_Logistics_per_Trip"]
     loc = loc.merge(trip_cost, on="Location_Type", how="left")
 
-    # Annualize using days-PER-ATM (not total row count) so groups with more
-    # ATMs aren't under-annualized.
     days_per_atm = (
         df.groupby(["Location_Type", "ATM_ID"])["Log_Date"].count()
         .reset_index().groupby("Location_Type")["Log_Date"].mean()
@@ -366,7 +343,7 @@ def fmt_num(n, decimals=0):
 with st.sidebar:
     st.markdown(
         f"<div style='padding:0.3rem 0 0.2rem 0;font-size:1.7rem;'>\U0001F3E6</div>"
-        f"<div style='color:{NAVY}; font-size:1.15rem; font-weight:700; line-height:1.25;'>ATM Liquidity<br>Optimizer</div>",
+        f"<div style='color:{ICE}; font-size:1.15rem; font-weight:700; line-height:1.25;'>ATM Liquidity<br>Optimizer</div>",
         unsafe_allow_html=True,
     )
     st.caption("Operations & Treasury \u2014 Cash Liquidity Optimization")
@@ -712,7 +689,7 @@ with tabs[3]:
         st.markdown('<div class="section-title">Koefisien Variasi (CV) Permintaan</div>', unsafe_allow_html=True)
         cv_sorted = loc_summary.sort_values("CV", ascending=False)
         fig = px.bar(cv_sorted, x="Location_Type", y="CV", color="CV",
-                     color_continuous_scale=[ICE, GOLD, CORAL])
+                     color_continuous_scale=[ICE_SOFT, GOLD, CORAL])
         fig.update_traces(hovertemplate="%{x}<br>CV: %{y:.3f}<extra></extra>", texttemplate="%{y:.2f}", textposition="outside")
         fig = style_fig(fig, height=380)
         fig.update_coloraxes(showscale=False)
@@ -780,7 +757,7 @@ with tabs[4]:
         st.markdown('<div class="section-title">Total Biaya Operasional per Wilayah</div>', unsafe_allow_html=True)
         reg_sorted = region_summary.sort_values("Annual_Cost", ascending=True)
         fig = px.bar(reg_sorted, x="Annual_Cost", y="Region", orientation="h", color="ATMs",
-                     color_continuous_scale=[ICE, NAVY], text=reg_sorted["ATMs"].map(lambda v: f"{v} ATM"))
+                     color_continuous_scale=[ICE_SOFT, NAVY], text=reg_sorted["ATMs"].map(lambda v: f"{v} ATM"))
         fig.update_traces(hovertemplate="%{y}<br>Rp%{x:,.0f}<extra></extra>", textposition="outside")
         fig = style_fig(fig, height=380)
         fig.update_xaxes(title="Biaya / Tahun (IDR)")
@@ -806,7 +783,7 @@ with tabs[4]:
     tree2 = df.groupby(["Region", "Location_Type"])[["Holding_Cost_IDR", "Logistics_Cost_IDR"]].sum().reset_index()
     tree2["Total_Cost"] = tree2["Holding_Cost_IDR"] + tree2["Logistics_Cost_IDR"]
     fig3 = px.treemap(tree2, path=["Region", "Location_Type"], values="Total_Cost",
-                       color="Total_Cost", color_continuous_scale=[ICE, GOLD, NAVY])
+                       color="Total_Cost", color_continuous_scale=[ICE_SOFT, GOLD, NAVY])
     fig3.update_traces(hovertemplate="%{label}<br>Rp%{value:,.0f}<extra></extra>")
     fig3 = style_fig(fig3, height=420, legend_bottom=False)
     fig3.update_coloraxes(showscale=False)
@@ -937,7 +914,7 @@ with tabs[6]:
 
     for num, title, body in recs:
         st.markdown(f"""<div class="rec-card">
-        <span class="rec-num">{num}</span><b style="color:{NAVY}; font-size:1.02rem;">{title}</b>
+        <span class="rec-num">{num}</span><b style="color:{ICE}; font-size:1.02rem;">{title}</b>
         <p style="margin:0.5rem 0 0 2.4rem; color:{SLATE}; font-size:0.93rem; line-height:1.5;">{body}</p>
         </div>""", unsafe_allow_html=True)
 
